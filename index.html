@@ -422,15 +422,45 @@
             toggle.classList.toggle('active');
         }
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4gYJH8g3hAyVAAMgd3G-ECpg1Y0tKUFLCwI1c5FYRM-o7NxdKLhP0lIHj3ASXImde/exec';
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const object = {};
-            formData.forEach((value, key) => object[key] = value);
-            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(object) })
-                .then(() => document.getElementById('formMessage').classList.add('success', 'form-message').textContent = 'Submitted successfully!')
-                .catch(() => document.getElementById('formMessage').classList.add('error', 'form-message').textContent = 'Error – try again.');
-        }
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const submitBtn = event.target.querySelector('.form-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    const formData = new FormData(event.target);
+
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        redirect: 'follow',
+        body: formData
+    })
+    .then(() => {
+        document.getElementById('formMessage').innerHTML = '✓ Thank you! Your details have been submitted successfully. We will contact you within 24 hours.';
+        document.getElementById('formMessage').classList.remove('error');
+        document.getElementById('formMessage').classList.add('success');
+        event.target.reset();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        document.getElementById('formMessage').innerHTML = '⚠ Submission failed. Please try WhatsApp or call us directly.';
+        document.getElementById('formMessage').classList.remove('success');
+        document.getElementById('formMessage').classList.add('error');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        setTimeout(() => {
+            document.getElementById('formMessage').innerHTML = '';
+            document.getElementById('formMessage').classList.remove('success', 'error');
+        }, 8000);
+    });
+}
     </script>
 </body>
 </html>
+
