@@ -25,7 +25,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
         header { background: white; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
         .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: var(--spacing-12) var(--spacing-20); }
-        .logo img { height: 50px; object-fit: contain; }
+        .logo img { height: 50px; object-fit: contain; border-radius: 8px; }
         nav { display: flex; gap: var(--spacing-16); align-items: center; }
         nav button { background: none; border: none; cursor: pointer; font-size: 14px; padding: var(--spacing-8) var(--spacing-12); color: var(--text-dark); font-weight: 500; }
         nav button:hover, nav button.active { color: var(--primary); }
@@ -46,32 +46,39 @@
         .course-header { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; padding: var(--spacing-20); text-align: center; }
         .course-price { font-size: 2em; font-weight: bold; }
         .course-body { padding: var(--spacing-20); }
-        .course-body ul { list-style: none; }
-        .course-body li { padding: var(--spacing-8) 0 var(--spacing-8) var(--spacing-24); position: relative; }
-        .course-body li::before { content: "✓"; position: absolute; left: 0; color: #208c8d; font-weight: bold; }
+        .course-body ul { list-style: none; margin: var(--spacing-12) 0; }
+        .course-body li { padding: var(--spacing-8) 0 var(--spacing-8) var(--spacing-24); position: relative; color: var(--text-secondary); }
+        .course-body li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: var(--spacing-24) 0; }
+        table th, table td { border: 1px solid var(--border-color); padding: var(--spacing-12); text-align: left; }
+        table th { background: #f5f5f0; }
         .faq { margin: var(--spacing-24) 0; }
         .faq-item { background: white; border: 1px solid var(--border-color); border-radius: var(--radius); margin-bottom: var(--spacing-12); overflow: hidden; }
         .faq-question { padding: var(--spacing-16); cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fffff5; font-weight: 600; }
-        .faq-answer { padding: 0 var(--spacing-16) var(--spacing-16); display: none; }
+        .faq-answer { padding: 0 var(--spacing-16) var(--spacing-16); display: none; color: var(--text-secondary); }
         .faq-answer.active { display: block; }
         .faq-toggle.active { transform: rotate(180deg); }
         .section-header { text-align: center; margin-bottom: var(--spacing-24); }
         .contact-form { background: white; padding: var(--spacing-24); border-radius: var(--radius); border: 1px solid var(--border-color); max-width: 600px; margin: 0 auto var(--spacing-24); }
         .form-group { margin-bottom: var(--spacing-16); }
         .form-group label { display: block; margin-bottom: var(--spacing-8); font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: var(--spacing-12); border: 1px solid var(--border-color); border-radius: var(--radius); }
-        .form-submit { width: 100%; padding: var(--spacing-12); background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: var(--spacing-12); border: 1px solid var(--border-color); border-radius: var(--radius); font-size: 1em; }
+        .form-submit { width: 100%; padding: var(--spacing-12); background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; transition: background 0.3s; }
+        .form-submit:hover { background: var(--primary-hover); }
+        .form-message { margin-top: var(--spacing-16); padding: var(--spacing-12); border-radius: var(--radius); text-align: center; display: none; }
+        .form-message.success { background: #d4edda; color: #155724; display: block; }
+        .form-message.error { background: #f8d7da; color: #721c24; display: block; }
         .footer-ribbon { background: var(--primary); color: white; padding: var(--spacing-24); text-align: center; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-20); max-width: 1200px; margin: 0 auto; }
         .footer-section a { color: white; text-decoration: none; }
-        @media (max-width: 768px) { .header-container { flex-direction: column; gap: var(--spacing-12); } .course-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .header-container { flex-direction: column; gap: var(--spacing-12); } nav { justify-content: center; flex-wrap: wrap; } .course-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <header>
         <div class="header-container">
             <a href="#" class="logo" onclick="switchTab('home'); return false;">
-                <img src="learnmint-logo.png" alt="Learnmint Logo"> <!-- Replace with your uploaded logo -->
+                <img src="learnmint-logo.png" alt="Learnmint Logo"> <!-- Upload your teal logo file -->
             </a>
             <nav>
                 <button onclick="switchTab('home')" class="nav-btn active">Home</button>
@@ -87,23 +94,13 @@
         <section id="home" class="tab-content active">
             <div class="hero">
                 <h1>Welcome to Learnmint</h1>
-                <p>Practical courses in AI Tools & Dropshipping for India's digital economy.</p>
-
-<grok-card data-id="f420a3" data-type="image_card"  data-arg-size="LARGE" ></grok-card>
-
-
-
-<grok-card data-id="6225b5" data-type="image_card"  data-arg-size="LARGE" ></grok-card>
-
+                <p>Practical, hands-on courses in AI Tools and Dropshipping – Designed for India's digital entrepreneurs.</p>
+                <img src="https://img.freepik.com/premium-photo/robot-teacher-transforming-classroom-future-education-generative-ai_634358-743.jpg" alt="AI Classroom">
+                <img src="https://static.vecteezy.com/system/resources/previews/065/833/142/large_2x/drone-delivering-packages-in-an-ecommerce-warehouse-during-daytime-showcasing-modern-drop-shipping-logistics-photo.jpeg" alt="Dropshipping Warehouse">
                 <h2>Market Growth Insights</h2>
-                <p>AI market projected to $244B in 2025, >$800B by 2030. Dropshipping $445B in 2025, $1.25T by 2030.</p>
-
-<grok-card data-id="90cf29" data-type="image_card"  data-arg-size="LARGE" ></grok-card>
-
-
-
-<grok-card data-id="2ee739" data-type="image_card"  data-arg-size="LARGE" ></grok-card>
-
+                <p>The AI market is projected to reach $244 billion in 2025, growing to over $800 billion by 2030. Dropshipping market valued at $445.5 billion in 2025, expected to hit $1,253 billion by 2030.</p>
+                <img src="https://www.grandviewresearch.com/static/img/research/artificial-intelligence-as-a-service-market.webp" alt="AI Market Growth Chart">
+                <img src="https://www.precedenceresearch.com/insightimg/dropshipping-market-size.webp" alt="Dropshipping Market Growth Chart">
             </div>
             <div class="testimonials">
                 <h2>What Our Students Say</h2>
@@ -131,14 +128,177 @@
             <div class="faq">
                 <h2>Frequently Asked Questions</h2>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)"><span>What are the prerequisites?</span><span class="faq-toggle">▼</span></div>
-                    <div class="faq-answer"><p>No coding needed! Bilingual, India-focused.</p></div>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>What are the prerequisites for the courses?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No coding or prior experience required. Designed for beginners to professionals with bilingual support.</p>
+                    </div>
                 </div>
-                <!-- Add the other 4 FAQs similarly -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How long is access to the course?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Lifetime access with quarterly updates for new tools/models.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Is refund possible?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Full refund within the same day of enrollment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Is mentorship included?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, from industry experts, with Discord community support.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do you provide certification?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Job-ready certification with portfolio showcase.</p>
+                    </div>
+                </div>
             </div>
         </section>
-        <!-- AI Course, Dropshipping, About, Contact with full PDF content -->
-        <!-- (Content expanded here - modules, tables, etc.) -->
+        <!-- AI Course -->
+        <section id="ai-course" class="tab-content">
+            <div class="section-header">
+                <h2>AI Tools Courses</h2>
+                <p>Cutting-edge, practical courses focused on mastering the latest AI tools as of December 2025. Hands-on, no/low-code skills for generative AI.</p>
+                <img src="https://as2.ftcdn.net/jpg/05/99/86/65/1000_F_599866539_xDy7v53vF1ErFoSgSzzj8gAlHLEX9B78.jpg" alt="Futuristic AI Classroom">
+            </div>
+            <p>Designed for beginners to professionals (marketers, content creators, freelancers in India). Covers ChatGPT o3/o5, Claude 4.5 Sonnet, Gemini 3 Pro/Flash, Grok 3, Midjourney v7, DALL-E 3/Imagen 3, Veo 3, Synthesia, Runway ML, Perplexity, Cursor, ElevenLabs, Zapier/n8n.</p>
+            <p>Online delivery: live sessions, recorded lectures, weekly projects, mentorship, Discord, bilingual (English/Hindi), India-specific examples, lifetime access, 100+ templates, quarterly updates, certification.</p>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>3-Month Course</h3>
+                        <div class="course-price">₹29,999</div>
+                    </div>
+                    <div class="course-body">
+                        <p>Fast-track for quick skill gains. Ideal for beginners.</p>
+                        <ul>
+                            <li>Core Modules 1-6</li>
+                            <li>Hands-on projects</li>
+                            <li>Mentorship</li>
+                            <li>Templates & certification</li>
+                        </ul>
+                        <button class="btn-primary" onclick="switchTab('contact')">Enroll Now</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>6-Month Course</h3>
+                        <div class="course-price">₹49,999</div>
+                    </div>
+                    <div class="course-body">
+                        <p>Intermediate depth with automation & multimedia.</p>
+                        <ul>
+                            <li>Modules 1-10</li>
+                            <li>More projects & mentorship</li>
+                        </ul>
+                        <button class="btn-primary" onclick="switchTab('contact')">Enroll Now</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>12-Month Course</h3>
+                        <div class="course-price">₹79,999</div>
+                    </div>
+                    <div class="course-body">
+                        <p>Comprehensive mastery with advanced agents & portfolio.</p>
+                        <ul>
+                            <li>All 15 modules</li>
+                            <li>Capstone project</li>
+                        </ul>
+                        <button class="btn-primary" onclick="switchTab('contact')">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            <h3>Modules</h3>
+            <p>15 in-depth modules: Prompt engineering, integrations, ethical use, no-code workflows, 50+ projects.</p>
+            <ol>
+                <li>Introduction to AI & Generative AI Fundamentals</li>
+                <li>Advanced Prompt Engineering Mastery</li>
+                <li>Text Generation & LLMs in Action</li>
+                <li>Image & Visual Generation</li>
+                <li>Data Analysis & Insights with AI</li>
+                <li>Productivity & Daily Workflow Boost</li>
+                <!-- Intermediate & Advanced as per PDF -->
+            </ol>
+            <!-- Add roadmap and comparison tables if needed -->
+        </section>
+        <!-- Dropshipping -->
+        <section id="dropshipping" class="tab-content">
+            <div class="section-header">
+                <h2>Dropshipping Courses</h2>
+                <p>Build & scale your online store with Shopify.</p>
+                <img src="https://static.vecteezy.com/system/resources/previews/065/833/142/large_2x/drone-delivering-packages-in-an-ecommerce-warehouse-during-daytime-showcasing-modern-drop-shipping-logistics-photo.jpeg" alt="Dropshipping Logistics">
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Shopify Mastery (3-Month)</h3>
+                        <div class="course-price">₹15,000</div>
+                    </div>
+                    <div class="course-body">
+                        <p>Set up store from scratch, themes, products, apps, SEO, marketing.</p>
+                        <ul>
+                            <li>Video lessons, templates, community</li>
+                            <li>Modules: Store setup, domain, themes, etc.</li>
+                        </ul>
+                        <button class="btn-primary" onclick="switchTab('contact')">Enroll Now</button>
+                    </div>
+                </div>
+                <!-- Add other 2 courses similarly from PDF -->
+            </div>
+        </section>
+        <!-- About Us -->
+        <section id="about" class="tab-content">
+            <div class="section-header">
+                <h2>About Us</h2>
+            </div>
+            <p>Legal Name: Varah Educom Pvt. Ltd.<br>Brand: Learnmint<br>GST: 06AAJCV5860B1ZC<br>Address: Plot No. 31A, Udyog Vihar, Sector-18, Gurgaon, Haryana, 122002, India</p>
+            <p>We offer practical edtech courses for AI and dropshipping.</p>
+            <p>Links: <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="refund.html">Refund Policy</a></p>
+            <!-- Create separate HTML files for policies or add content here -->
+        </section>
+        <!-- Contact -->
+        <section id="contact" class="tab-content">
+            <div class="section-header">
+                <h2>Want to Know More?</h2>
+            </div>
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="Full Name" required>
+                </div>
+                <!-- All fields as per your requirement -->
+                <div class="form-group">
+                    <label>Course Interested In *</label>
+                    <select name="Course you are interested in" required>
+                        <option>AI 3-Month</option>
+                        <!-- All options -->
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Submit</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </section>
     </main>
     <footer class="footer-ribbon">
         <h3>Get in Touch</h3>
@@ -169,7 +329,8 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            const btn = document.querySelector(`nav button[onclick="switchTab('${tabName}')"]`);
+            if (btn) btn.classList.add('active');
             window.scrollTo(0, 0);
         }
         function toggleFaq(element) {
@@ -178,7 +339,12 @@
             answer.classList.toggle('active');
             toggle.classList.toggle('active');
         }
-        // Form submit script (your original with SCRIPT_URL)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4gYJH8g3hAyVAAMgd3G-ECpg1Y0tKUFLCwI1c5FYRM-o7NxdKLhP0lIHj3ASXImde/exec';
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            // Your form submit code
+            // Collect data, fetch to SCRIPT_URL, show message
+        }
     </script>
 </body>
 </html>
